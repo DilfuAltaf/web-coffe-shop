@@ -35,7 +35,7 @@
           class="bg-[#7F6445] text-white rounded-lg font-semibold hover:bg-[#6a5438] transition"
           style="width: 487px; height: 50px"
         >
-          Login
+          Register
         </button>
 
         <div class="flex justify-center gap-4 mt-6">
