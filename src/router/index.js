@@ -4,7 +4,7 @@ import LoginPage from '@/components/login/LoginPage.vue'
 import RegisterKomponen from '@/components/register/RegisterKomponen.vue'
 import OrderNow from '@/components/Order/OrderNow.vue'
 import BuyKomponen from '@/components/buy now/BuyKomponen.vue'
-import Chart from '@/components/buy now/chart/Chart.vue'
+import ChartPage from '@/components/chart/ChartPage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -37,7 +37,7 @@ const router = createRouter({
     {
       path: '/chart',
       name: 'chart',
-      component: Chart,
+      component: ChartPage,
     },
   ],
 })

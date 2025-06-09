@@ -105,6 +105,29 @@ function increase() {
 function decrease() {
   if (quantity.value > 1) quantity.value--
 }
+
+function addToCart() {
+  // Ambil cart lama dari localStorage (jika ada)
+  let cart = JSON.parse(localStorage.getItem('cart')) || []
+
+  // Cek apakah produk sudah ada di cart
+  const existing = cart.find((item) => item.id === product.value.id)
+  if (existing) {
+    existing.quantity += quantity.value
+  } else {
+    cart.push({
+      id: product.value.id,
+      name: product.value.name,
+      price: product.value.price,
+      image: product.value.image,
+      quantity: quantity.value,
+    })
+  }
+
+  // Simpan kembali ke localStorage
+  localStorage.setItem('cart', JSON.stringify(cart))
+  alert('Item added to cart!')
+}
 </script>
 
 <template>
@@ -113,15 +136,9 @@ function decrease() {
     <nav
       class="fixed top-0 left-0 w-full z-50 flex justify-between h-[90px] items-center px-[75px] text-white bg-[#A59786]"
     >
-      <h1 class="text-[24px] font-semibold"><a href="#">Café de Aroma</a></h1>
-      <ul class="flex gap-[56px]">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Coffe</a></li>
-        <li><a href="#">Bakery</a></li>
-        <li><a href="#">About</a></li>
-      </ul>
+      <h1 class="text-[24px] font-semibold"><a href="/home">Café de Aroma</a></h1>
       <div class="flex items-center gap-6">
-        <a href="#"><i class="fas fa-bag-shopping text-white text-2xl"></i></a>
+        <a href="/chart"><i class="fas fa-bag-shopping text-white text-2xl"></i></a>
         <a href="/">
           <button
             class="bg-[#4A2E0D] w-[124px] h-[46px] text-[18px] rounded-full transition-all duration-300 hover:bg-[#603913] hover:scale-105 hover:shadow-lg hover:text-yellow-200"
@@ -133,7 +150,9 @@ function decrease() {
     </nav>
     <!-- Product Detail -->
     <section class="px-6 py-8 max-w-6xl mx-auto mt-20">
-      <button @click="goBack" class="text-sm mb-4 text-[#3A2E2A]">&larr; Back</button>
+      <button @click="goBack" class="text-sm mb-4 text-[#3A2E2A]">
+        <a href="/home">&larr; Back</a>
+      </button>
 
       <div v-if="product" class="flex flex-col md:flex-row gap-10">
         <img :src="`/${product.image}`" class="w-[350px] h-auto rounded-lg" :alt="product.name" />
@@ -162,7 +181,14 @@ function decrease() {
           <!-- Tombol -->
           <div class="space-y-4 mb-6 max-w-xs">
             <!-- Buy Now -->
-            <button class="w-full bg-[#A98666] text-white py-2 rounded">Buy Now</button>
+            <!--
+            <button
+              @click="buyNow"
+              class="w-full bg-[#A98666] text-white py-2 rounded transition-colors duration-300 hover:bg-[#B28C6E] hover:shadow-md hover:text-yellow-100"
+            >
+              Buy Now
+            </button>
+            -->
 
             <!-- Quantity + Add to cart -->
             <div class="flex items-center gap-4">
@@ -179,7 +205,8 @@ function decrease() {
 
               <!-- Add to cart -->
               <button
-                class="flex items-center justify-center gap-2 bg-[#A98666] text-white px-4 h-10 rounded"
+                @click="addToCart"
+                class="flex items-center justify-center gap-2 bg-[#A98666] text-white px-4 h-10 rounded transition-colors duration-300 hover:bg-[#B28C6E] hover:shadow-md hover:text-yellow-100"
               >
                 <i class="fas fa-shopping-bag"></i>
                 Add to cart
@@ -230,13 +257,15 @@ function decrease() {
         <h3 class="text-xl font-semibold mb-4">Similar Products</h3>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div v-for="item in similar" :key="item.id" class="bg-white p-2 rounded shadow">
-            <img
-              :src="`/${item.image}`"
-              :alt="item.name"
-              class="rounded w-full h-32 object-cover"
-            />
-            <p class="text-sm font-semibold mt-2">{{ item.name }}</p>
-            <p class="text-xs text-[#A98666]">Rp.{{ item.price }}</p>
+            <a :href="`/buy/${item.id}`">
+              <img
+                :src="`/${item.image}`"
+                :alt="item.name"
+                class="rounded w-full h-52 object-cover"
+              />
+              <p class="text-sm font-semibold mt-2">{{ item.name }}</p>
+              <p class="text-xs text-[#A98666]">Rp.{{ item.price }}</p>
+            </a>
           </div>
         </div>
       </div>

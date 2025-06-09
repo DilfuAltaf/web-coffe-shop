@@ -161,13 +161,7 @@ function isLiked(name) {
       <nav
         class="fixed top-0 left-0 w-full z-50 flex justify-between h-[90px] items-center px-[75px] text-white bg-[#A59786]"
       >
-        <h1 class="text-[24px] font-semibold"><a href="#">Café de Aroma</a></h1>
-        <ul class="flex gap-[56px]">
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Coffe</a></li>
-          <li><a href="#">Bakery</a></li>
-          <li><a href="#">About</a></li>
-        </ul>
+        <h1 class="text-[24px] font-semibold"><a href="/home">Café de Aroma</a></h1>
         <div class="flex items-center gap-6">
           <a href="#"><i class="fas fa-bag-shopping text-white text-2xl"></i></a>
           <a href="/">
