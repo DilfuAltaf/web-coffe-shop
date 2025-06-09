@@ -91,7 +91,7 @@ onMounted(() => {
         <div
           class="h-[800px] text-white flex flex-col justify-center pl-[160px]"
           style="
-            background-image: url('/public/img/bg.png');
+            background-image: url('/img/bg.png');
             background-size: cover;
             background-position: center;
           "
@@ -145,13 +145,13 @@ onMounted(() => {
     >
       <div class="flex gap-16 w-full max-w-[1200px]">
         <img
-          src="/public/img/dalgona.png"
+          src="/img/dalgona.png"
           alt="dalgona coffee"
           class="h-[450px] object-cover rounded-md shadow-md"
         />
         <div class="flex flex-col w-full">
           <div>
-            <img src="/public/img/icon.png" class="h-[20px] w-[20px]" alt="icon" />
+            <img src="/img/icon.png" class="h-[20px] w-[20px]" alt="icon" />
             <h2 class="font-semibold text-[42px]">Signature Menu</h2>
             <div class="flex justify-between pt-[10px]">
               <h3 class="text-[20px] font-bold">Dalgona Coffe</h3>
@@ -177,7 +177,7 @@ onMounted(() => {
       <div class="flex gap-16 w-full max-w-[1200px]">
         <div class="flex flex-col w-full">
           <div>
-            <img src="/public/img/icon.png" class="h-[20px] w-[20px]" alt="icon" />
+            <img src="/img/icon.png" class="h-[20px] w-[20px]" alt="icon" />
             <h2 class="font-semibold text-[42px]">Recomended</h2>
             <div class="flex justify-between pt-[10px]">
               <h3 class="text-[20px] font-bold">Lungo Coffe</h3>
@@ -200,7 +200,7 @@ onMounted(() => {
           </div>
         </div>
         <img
-          src="/public/img/lungo.png"
+          src="/img/lungo.png"
           alt="dalgona coffee"
           class="h-[450px] object-cover rounded-md shadow-md"
         />
@@ -216,13 +216,13 @@ onMounted(() => {
     >
       <div class="flex gap-16 w-full max-w-[1200px]">
         <img
-          src="/public/img/flaky_pastry.png"
+          src="/img/flaky_pastry.png"
           alt="dalgona coffee"
           class="h-[450px] object-cover rounded-md shadow-md"
         />
         <div class="flex flex-col w-full">
           <div>
-            <img src="/public/img/icon.png" class="h-[20px] w-[20px]" alt="icon" />
+            <img src="/img/icon.png" class="h-[20px] w-[20px]" alt="icon" />
             <h2 class="font-semibold text-[42px]">Starter Menu</h2>
             <div class="flex justify-between pt-[10px]">
               <h3 class="text-[20px] font-bold">Flaky Pastry</h3>
@@ -248,7 +248,7 @@ onMounted(() => {
       <div class="flex gap-16 w-full max-w-[1200px]">
         <div class="flex flex-col w-full">
           <div>
-            <img src="/public/img/icon.png" class="h-[20px] w-[20px]" alt="icon" />
+            <img src="/img/icon.png" class="h-[20px] w-[20px]" alt="icon" />
             <h2 class="font-semibold text-[42px]">Main Course</h2>
             <div class="flex justify-between pt-[10px]">
               <h3 class="text-[20px] font-bold">Shortcrust Pastry</h3>
@@ -269,7 +269,7 @@ onMounted(() => {
           </div>
         </div>
         <img
-          src="/public/img/shortcrust_pastry.png"
+          src="/img/shortcrust_pastry.png"
           alt="dalgona coffee"
           class="h-[450px] object-cover rounded-md shadow-md"
         />
@@ -280,14 +280,14 @@ onMounted(() => {
       <h2 class="text-[42px] font-semibold">We work with the best people</h2>
       <div class="flex py-[40px] flex-row gap-[80px]">
         <img
-          src="/public/img/restaurant_sponsor.png"
+          src="/img/restaurant_sponsor.png"
           alt="restaurant sponsor"
           class="w-auto h-[120px]"
         />
-        <img src="/public/img/bakery_sponsor.png" alt="bakery sponsor" class="w-auto h-[120px]" />
-        <img src="/public/img/plate_sponsor.png" alt="plate sponsor" class="w-auto h-[120px]" />
-        <img src="/public/img/coffe_sponsor.png" alt="coffe sponsor" class="w-auto h-[120px]" />
-        <img src="/public/img/cake_sponsor.png" alt="cake sponsor" class="w-auto h-[120px]" />
+        <img src="/img/bakery_sponsor.png" alt="bakery sponsor" class="w-auto h-[120px]" />
+        <img src="/img/plate_sponsor.png" alt="plate sponsor" class="w-auto h-[120px]" />
+        <img src="/img/coffe_sponsor.png" alt="coffe sponsor" class="w-auto h-[120px]" />
+        <img src="/img/cake_sponsor.png" alt="cake sponsor" class="w-auto h-[120px]" />
       </div>
     </div>
   </div>
