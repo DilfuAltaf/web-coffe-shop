@@ -1,10 +1,9 @@
 <template>
   <div class="bg-[#F7EBD9] min-h-screen font-sans text-[#3E2E23]">
     <!-- Header -->
-    <header class="bg-[#A98666] text-white py-4 px-6 flex justify-between items-center">
-      <h1 class="text-lg font-bold">Café de Aroma</h1>
+    <header class="text-white py-10 px-6 flex justify-between items-center">
       <nav
-        class="fixed top-0 left-0 w-full z-50 flex justify-between h-[90px] items-center px-[75px] text-white"
+        class="fixed top-0 left-0 w-full z-50 flex justify-between h-[90px] items-center px-[75px] text-white bg-[#99856B]"
       >
         <h1 class="text-[24px] font-semibold"><a href="#">Café de Aroma</a></h1>
         <ul class="flex gap-[56px]">
@@ -28,14 +27,12 @@
             </button>
           </a>
         </div>
-      </nav>
+      </nav>
     </header>
 
     <!-- Cart Section -->
     <div class="px-6 py-4">
-      <button @click="goBack" class="text-sm mb-4 text-[#3A2E2A] flex items-center">
-        ← Back
-      </button>
+      <button @click="goBack" class="text-sm mb-4 text-[#3A2E2A] flex items-center">← Back</button>
 
       <div class="bg-[#FAECD8] rounded-xl p-6 overflow-x-auto">
         <table class="w-full table-auto text-sm">
@@ -68,7 +65,7 @@
               <td>Rp.{{ item.price * item.quantity }}</td>
               <td>
                 <button @click="removeItem(index)" class="text-[#3E2E23] hover:text-red-500">
-                  <span class="text-lg">🗑️</span>
+                  <span class="text-lg">🗑</span>
                 </button>
               </td>
             </tr>
@@ -81,52 +78,52 @@
 
 <script>
 export default {
-  name: "CartPage",
+  name: 'CartPage',
   data() {
     return {
       cart: [
         {
-          name: "Dalgona Coffee",
+          name: 'Dalgona Coffee',
           price: 138,
           quantity: 1,
-          image: "https://source.unsplash.com/80x80/?dalgona,coffee"
+          image: 'https://source.unsplash.com/80x80/?dalgona,coffee',
         },
         {
-          name: "Lungo Coffee",
+          name: 'Lungo Coffee',
           price: 199,
           quantity: 1,
-          image: "https://source.unsplash.com/80x80/?lungo,coffee"
+          image: 'https://source.unsplash.com/80x80/?lungo,coffee',
         },
         {
-          name: "Flaky Pastry",
+          name: 'Flaky Pastry',
           price: 89,
           quantity: 1,
-          image: "https://source.unsplash.com/80x80/?pastry,flaky"
+          image: 'https://source.unsplash.com/80x80/?pastry,flaky',
         },
         {
-          name: "Shortcrust Pastry",
+          name: 'Shortcrust Pastry',
           price: 119,
           quantity: 1,
-          image: "https://source.unsplash.com/80x80/?pastry,shortcrust"
-        }
-      ]
-    };
+          image: 'https://source.unsplash.com/80x80/?pastry,shortcrust',
+        },
+      ],
+    }
   },
   methods: {
     increaseQty(index) {
-      this.cart[index].quantity++;
+      this.cart[index].quantity++
     },
     decreaseQty(index) {
-      if (this.cart[index].quantity > 1) this.cart[index].quantity--;
+      if (this.cart[index].quantity > 1) this.cart[index].quantity--
     },
     removeItem(index) {
-      this.cart.splice(index, 1);
+      this.cart.splice(index, 1)
     },
     goBack() {
-      window.history.back();
-    }
-  }
-};
+      window.history.back()
+    },
+  },
+}
 </script>
 
 <style scoped>

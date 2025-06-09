@@ -1,57 +1,219 @@
+<script setup>
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
+
+const menus = [
+  {
+    id: 1,
+    name: 'Dalgona Coffee',
+    description: 'Whipped coffee made using instant coffee.',
+    price: 138,
+    image: 'img/dalgona.png',
+    category: 'Coffee',
+    tags: ['Dalgona'],
+  },
+  {
+    id: 2,
+    name: 'Lungo Coffee',
+    description: 'A lungo is a long espresso with a milder taste.',
+    price: 99,
+    image: 'img/lungo.png',
+    category: 'Coffee',
+    tags: ['Lungo'],
+  },
+  {
+    id: 3,
+    name: 'Iced Coffee',
+    description: 'Iced coffee is cold coffee with ice.',
+    price: 99,
+    image: 'img/iced.png',
+    category: 'Coffee',
+    tags: ['Iced'],
+  },
+  {
+    id: 4,
+    name: 'Piccolo Latte',
+    description: 'Piccolo coffee has a taste that is not too sour.',
+    price: 159,
+    image: 'img/piccolo.png',
+    category: 'Coffee',
+    tags: ['Piccolo'],
+  },
+  {
+    id: 5,
+    name: 'Flaky Pastry',
+    description: 'Flaky pastry is known for its thin and crispy texture.',
+    price: 69,
+    image: 'img/flaky_pastry.png',
+    category: 'Bakery',
+    tags: ['Flaky'],
+  },
+  {
+    id: 6,
+    name: 'Shortcrust Pastry',
+    description: 'A crisp, crumbly shortcrust pastry made from butter.',
+    price: 99,
+    image: 'img/shortcrust_pastry.png',
+    category: 'Bakery',
+    tags: ['Shortcrust'],
+  },
+  {
+    id: 7,
+    name: 'Puff Pastry',
+    description: 'A type of laminated pastry dough characteristically flaky.',
+    price: 49,
+    image: 'img/puff_pastry.png',
+    category: 'Bakery',
+    tags: ['Puff'],
+  },
+  {
+    id: 8,
+    name: 'Choux Pastry',
+    description: 'A French pastry dough that is unique for its hollow center.',
+    price: 79,
+    image: 'img/choux_pastry.png',
+    category: 'Bakery',
+    tags: ['Choux'],
+  },
+]
+
+const route = useRoute()
+const product = computed(() => {
+  const id = Number(route.params.id)
+  return menus.find((item) => item.id === id)
+})
+
+const similar = computed(() => {
+  if (!product.value) return []
+  return menus
+    .filter((item) => item.category === product.value.category && item.id !== product.value.id)
+    .slice(0, 4)
+})
+
+function goBack() {
+  window.history.back()
+}
+
+import { ref } from 'vue'
+
+const quantity = ref(1)
+
+function increase() {
+  quantity.value++
+}
+
+function decrease() {
+  if (quantity.value > 1) quantity.value--
+}
+</script>
+
 <template>
   <div class="bg-[#F7EBD9] text-[#3E2E23] font-sans">
-    <!-- Header -->
-    <header class="bg-[#A98666] text-white py-4 px-6 flex justify-between items-center">
-      <h1 class="text-lg font-bold">Café de Aroma</h1>
-      <nav class="space-x-8 hidden md:flex">
-        <a href="#" class="hover:underline">Home</a>
-        <a href="#" class="hover:underline">Coffee</a>
-        <a href="#" class="hover:underline">Bakery</a>
-        <a href="#" class="hover:underline">About</a>
-      </nav>
-      <div class="flex items-center space-x-4">
-        <button class="text-2xl">🛒</button>
-        <button class="bg-[#5B3A1D] text-white px-4 py-1 rounded-full">Login</button>
+    <!-- Navbar -->
+    <nav
+      class="fixed top-0 left-0 w-full z-50 flex justify-between h-[90px] items-center px-[75px] text-white bg-[#A59786]"
+    >
+      <h1 class="text-[24px] font-semibold"><a href="#">Café de Aroma</a></h1>
+      <ul class="flex gap-[56px]">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Coffe</a></li>
+        <li><a href="#">Bakery</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+      <div class="flex items-center gap-6">
+        <a href="#"><i class="fas fa-bag-shopping text-white text-2xl"></i></a>
+        <a href="/">
+          <button
+            class="bg-[#4A2E0D] w-[124px] h-[46px] text-[18px] rounded-full transition-all duration-300 hover:bg-[#603913] hover:scale-105 hover:shadow-lg hover:text-yellow-200"
+          >
+            Logout
+          </button>
+        </a>
       </div>
-    </header>
-
+    </nav>
     <!-- Product Detail -->
-    <section class="px-6 py-8 max-w-6xl mx-auto">
+    <section class="px-6 py-8 max-w-6xl mx-auto mt-20">
       <button @click="goBack" class="text-sm mb-4 text-[#3A2E2A]">&larr; Back</button>
 
-      <div class="flex flex-col md:flex-row gap-10">
-        <img src="https://source.unsplash.com/400x500/?dalgona,coffee" class="w-full md:w-1/2 rounded-lg" alt="Dalgona Coffee" />
-
+      <div v-if="product" class="flex flex-col md:flex-row gap-10">
+        <img :src="`/${product.image}`" class="w-[350px] h-auto rounded-lg" :alt="product.name" />
         <div class="md:w-1/2">
-          <span class="bg-[#EEE1D0] text-xs px-2 py-1 rounded-full">Hot</span>
-          <h2 class="text-3xl font-semibold mt-2">Dalgona Coffee</h2>
-          <p class="text-sm text-[#7B6C60] mb-2">Iced coffee made using instant coffee</p>
-          <p class="text-2xl font-bold text-[#3E2E23] mb-4">Rp.138</p>
+          <span class="bg-[#EEE1D0] text-xs px-2 py-1 rounded-full">{{ product.category }}</span>
+          <h2 class="text-3xl font-bold mt-[80px]">{{ product.name }}</h2>
+          <p class="text-sm text-[#7B6C60] mt-[20px]">{{ product.description }}</p>
+          <hr class="border-t-2 border-[#4A2E0D] mt-3 mb-6" style="border-style: dotted" />
+          <p class="text-2xl font-bold text-[#3E2E23] mb-4">Rp.{{ product.price }}</p>
 
+          <!-- Rating -->
           <div class="flex items-center gap-2 text-[#FFB800] mb-4">
-            <span>★★★★★</span>
-            <span class="text-sm text-[#7B6C60]">2 Review</span>
+            <div class="flex gap-1">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+            <span class="text-[#7B6C60] text-sm ml-2">|</span>
+            <span class="text-[#7B6C60] text-sm">5.0 Rating</span>
+            <span class="text-[#7B6C60] text-sm">|</span>
+            <span class="text-[#7B6C60] text-sm">22 Review</span>
           </div>
 
-          <div class="flex gap-4 mb-6">
-            <button class="bg-[#A98666] text-white px-6 py-2 rounded">Buy Now</button>
-            <button class="border border-[#A98666] px-6 py-2 rounded text-[#3E2E23]">Add to cart</button>
+          <!-- Tombol -->
+          <div class="space-y-4 mb-6 max-w-xs">
+            <!-- Buy Now -->
+            <button class="w-full bg-[#A98666] text-white py-2 rounded">Buy Now</button>
+
+            <!-- Quantity + Add to cart -->
+            <div class="flex items-center gap-4">
+              <!-- Quantity -->
+              <div class="flex border border-[#A98666] divide-x divide-[#A98666] h-10">
+                <button @click="decrease" class="w-10 text-[#3E2E23]">−</button>
+                <span
+                  class="w-10 text-center text-[#3E2E23] font-semibold flex items-center justify-center"
+                >
+                  {{ quantity }}
+                </span>
+                <button @click="increase" class="w-10 text-[#3E2E23]">+</button>
+              </div>
+
+              <!-- Add to cart -->
+              <button
+                class="flex items-center justify-center gap-2 bg-[#A98666] text-white px-4 h-10 rounded"
+              >
+                <i class="fas fa-shopping-bag"></i>
+                Add to cart
+              </button>
+            </div>
           </div>
 
           <div class="text-sm space-y-1 mb-6">
-            <p>Add to Wishlist</p>
-            <p>Category: Coffee</p>
-            <p>Tags: Dalgona</p>
-            <p>Share: 🌐 📘 🐦</p>
+            <p><i class="far fa-heart"></i> Add to Wishlist</p>
+            <p>Category: {{ product.category }}</p>
+            <p>
+              Tag:
+              <span v-for="tag in product.tags" :key="tag">{{ tag }}</span>
+            </p>
+            <p class="flex flex-row gap-2">
+              Share :
+              <i class="fab fa-youtube"></i>
+              <i class="fab fa-facebook-f"></i>
+              <i class="fab fa-twitter"></i>
+              <i class="fab fa-vk"></i>
+              <i class="fab fa-instagram"></i>
+            </p>
           </div>
         </div>
       </div>
+      <div v-else>
+        <p>Product not found.</p>
+      </div>
 
       <!-- Description -->
-      <div class="mt-12">
+      <div v-if="product" class="mt-12">
         <h3 class="text-xl font-semibold mb-2">Description</h3>
         <p class="text-sm text-[#5A4E47] mb-4">
-          Enjoy the creamy and sweet sensation of Dalgona Coffee, a contemporary coffee drink that will pamper your tongue. Made with a special blend, the soft dalgona foam blends perfectly with our specialty coffee.
+          {{ product.description }}
         </p>
 
         <h4 class="font-semibold mb-2">Key Benefits</h4>
@@ -64,11 +226,15 @@
       </div>
 
       <!-- Similar Products -->
-      <div class="mt-12">
+      <div v-if="similar.length" class="mt-12">
         <h3 class="text-xl font-semibold mb-4">Similar Products</h3>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div v-for="item in similar" :key="item.name" class="bg-white p-2 rounded shadow">
-            <img :src="item.image" :alt="item.name" class="rounded w-full h-32 object-cover" />
+          <div v-for="item in similar" :key="item.id" class="bg-white p-2 rounded shadow">
+            <img
+              :src="`/${item.image}`"
+              :alt="item.name"
+              class="rounded w-full h-32 object-cover"
+            />
             <p class="text-sm font-semibold mt-2">{{ item.name }}</p>
             <p class="text-xs text-[#A98666]">Rp.{{ item.price }}</p>
           </div>
@@ -206,43 +372,7 @@
           <a href="#" class="hover:text-black" aria-label="TikTok"> </a>
         </div>
       </div>
-    </footer>
+          
+    </footer>
   </div>
 </template>
-
-<script>
-export default {
-  name: "ProductDetail",
-  data() {
-    return {
-      similar: [
-        {
-          name: "Latte Macchiato",
-          price: "120",
-          image: "https://source.unsplash.com/200x200/?latte"
-        },
-        {
-          name: "Cappuccino",
-          price: "110",
-          image: "https://source.unsplash.com/200x200/?cappuccino"
-        },
-        {
-          name: "Espresso",
-          price: "90",
-          image: "https://source.unsplash.com/200x200/?espresso"
-        },
-        {
-          name: "Mocha",
-          price: "130",
-          image: "https://source.unsplash.com/200x200/?mocha"
-        }
-      ]
-    };
-  },
-  methods: {
-    goBack() {
-      window.history.back();
-    }
-  }
-};
-</script>

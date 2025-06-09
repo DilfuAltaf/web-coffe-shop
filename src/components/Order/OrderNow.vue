@@ -9,73 +9,96 @@ const likedItems = ref([])
 // Search Query
 const searchQuery = ref('')
 
-// Data Menu
-const coffees = [
+// Data Menu (gabungan)
+const menus = [
   {
+    id: 1,
     name: 'Dalgona Coffee',
     description: 'Whipped coffee made using instant coffee.',
     price: 138,
     image: 'img/dalgona.png',
+    category: 'Coffee',
+    tags: ['Dalgona'],
   },
   {
+    id: 2,
     name: 'Lungo Coffee',
     description: 'A lungo is a long espresso with a milder taste.',
     price: 99,
     image: 'img/lungo.png',
+    category: 'Coffee',
+    tags: ['Lungo'],
   },
   {
+    id: 3,
     name: 'Iced Coffee',
     description: 'Iced coffee is cold coffee with ice.',
     price: 99,
     image: 'img/iced.png',
+    category: 'Coffee',
+    tags: ['Iced'],
   },
   {
+    id: 4,
     name: 'Piccolo Latte',
     description: 'Piccolo coffee has a taste that is not too sour.',
     price: 159,
     image: 'img/piccolo.png',
+    category: 'Coffee',
+    tags: ['Piccolo'],
   },
-]
-
-const desserts = [
   {
+    id: 5,
     name: 'Flaky Pastry',
     description: 'Flaky pastry is known for its thin and crispy texture.',
     price: 69,
     image: 'img/flaky_pastry.png',
+    category: 'Bakery',
+    tags: ['Flaky'],
   },
   {
+    id: 6,
     name: 'Shortcrust Pastry',
     description: 'A crisp, crumbly shortcrust pastry made from butter.',
     price: 99,
     image: 'img/shortcrust_pastry.png',
+    category: 'Bakery',
+    tags: ['Shortcrust'],
   },
   {
+    id: 7,
     name: 'Puff Pastry',
     description: 'A type of laminated pastry dough characteristically flaky.',
     price: 49,
     image: 'img/puff_pastry.png',
+    category: 'Bakery',
+    tags: ['Puff'],
   },
   {
+    id: 8,
     name: 'Choux Pastry',
     description: 'A French pastry dough that is unique for its hollow center.',
     price: 79,
     image: 'img/choux_pastry.png',
+    category: 'Bakery',
+    tags: ['Choux'],
   },
 ]
 
-// Computed filtered menu berdasarkan searchQuery (case insensitive)
+// Computed filtered menu berdasarkan searchQuery dan kategori
 const filteredCoffees = computed(() => {
-  if (!searchQuery.value) return coffees
-  return coffees.filter(coffee =>
-    coffee.name.toLowerCase().includes(searchQuery.value.toLowerCase())
+  return menus.filter(
+    (item) =>
+      item.category === 'Coffee' &&
+      (!searchQuery.value || item.name.toLowerCase().includes(searchQuery.value.toLowerCase())),
   )
 })
 
 const filteredDesserts = computed(() => {
-  if (!searchQuery.value) return desserts
-  return desserts.filter(dessert =>
-    dessert.name.toLowerCase().includes(searchQuery.value.toLowerCase())
+  return menus.filter(
+    (item) =>
+      item.category === 'Bakery' &&
+      (!searchQuery.value || item.name.toLowerCase().includes(searchQuery.value.toLowerCase())),
   )
 })
 
@@ -84,7 +107,7 @@ onMounted(() => {
   // Loading screen delay 3 detik
   setTimeout(() => {
     showLoading.value = false
-  }, 3000)
+  }, 500)
 
   // Load liked items dari localStorage kalau ada
   const storedLikes = localStorage.getItem('likedItems')
@@ -123,7 +146,6 @@ function isLiked(name) {
 
 <template>
   <div class="min-h-screen transition-colors duration-1000 bg-[#E1D8C7] text-[#4A2E0D] font-sans">
-
     <!-- Loading Screen -->
     <div
       v-if="showLoading"
@@ -135,7 +157,6 @@ function isLiked(name) {
 
     <!-- Main Content -->
     <main v-else class="max-w-7xl mx-auto px-4 py-8">
-
       <!-- Navbar -->
       <nav
         class="fixed top-0 left-0 w-full z-50 flex justify-between h-[90px] items-center px-[75px] text-white bg-[#A59786]"
@@ -163,7 +184,9 @@ function isLiked(name) {
       <div class="flex items-center justify-between gap-4 mb-6 mt-[80px]">
         <a href="/home" class="text-sm text-[#4A2E0D] text-[18px] inline-block">&larr; Back</a>
         <div class="relative w-[250px]">
-          <span class="absolute inset-y-0 left-4 flex items-center pointer-events-none text-[#4A2E0D]">
+          <span
+            class="absolute inset-y-0 left-4 flex items-center pointer-events-none text-[#4A2E0D]"
+          >
             <i class="fas fa-search"></i>
           </span>
           <input
@@ -180,8 +203,8 @@ function isLiked(name) {
         <h2 class="text-2xl font-bold mb-4">OUR SPECIAL COFFEE</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
           <div
-            v-for="(coffee, index) in filteredCoffees"
-            :key="index"
+            v-for="(coffee) in filteredCoffees"
+            :key="coffee.id"
             class="bg-[#E3DDD4] rounded-lg shadow-md overflow-hidden w-[250px] h-[450px] flex flex-col transition-all duration-500 hover:scale-105"
           >
             <img
@@ -197,16 +220,21 @@ function isLiked(name) {
               <div class="flex justify-between items-center">
                 <span class="text-[12px] font-semibold">Rp.{{ coffee.price }}</span>
                 <div class="flex items-center gap-3">
-                  <button class="text-[12px] bg-[#E1D8C7] text-[#4A2E0D] px-3 py-1 rounded">
+                  <router-link
+                    :to="`/buy/${coffee.id}`"
+                    class="text-[12px] bg-[#E1D8C7] text-[#4A2E0D] px-3 py-1 rounded flex items-center justify-center"
+                  >
                     Buy Now
-                  </button>
+                  </router-link>
                   <div class="flex gap-2">
                     <i
                       class="fas fa-heart text-[14px] cursor-pointer"
                       :class="isLiked(coffee.name) ? 'text-red-500' : 'text-[#4A2E0D]'"
                       @click="toggleLike(coffee.name)"
                     ></i>
-                    <i class="fas fa-shopping-cart text-[14px] cursor-pointer hover:text-[#4A2E0D]"></i>
+                    <i
+                      class="fas fa-shopping-cart text-[14px] cursor-pointer hover:text-[#4A2E0D]"
+                    ></i>
                   </div>
                 </div>
               </div>
@@ -220,8 +248,8 @@ function isLiked(name) {
         <h2 class="text-2xl font-bold mb-4">OUR SPECIAL DESSERT</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
           <div
-            v-for="(dessert, index) in filteredDesserts"
-            :key="index"
+            v-for="(dessert) in filteredDesserts"
+            :key="dessert.id"
             class="bg-[#E3DDD4] rounded-lg shadow-md overflow-hidden w-[250px] h-[450px] flex flex-col transition-all duration-500 hover:scale-105"
           >
             <img
@@ -237,16 +265,21 @@ function isLiked(name) {
               <div class="flex justify-between items-center">
                 <span class="text-[12px] font-semibold">Rp.{{ dessert.price }}</span>
                 <div class="flex items-center gap-3">
-                  <button class="text-[12px] bg-[#E1D8C7] text-[#4A2E0D] px-3 py-1 rounded">
+                  <router-link
+                    :to="`/buy/${dessert.id}`"
+                    class="text-[12px] bg-[#E1D8C7] text-[#4A2E0D] px-3 py-1 rounded flex items-center justify-center"
+                  >
                     Buy Now
-                  </button>
+                  </router-link>
                   <div class="flex gap-2">
                     <i
                       class="fas fa-heart text-[14px] cursor-pointer"
                       :class="isLiked(dessert.name) ? 'text-red-500' : 'text-[#4A2E0D]'"
                       @click="toggleLike(dessert.name)"
                     ></i>
-                    <i class="fas fa-shopping-cart text-[14px] cursor-pointer hover:text-[#4A2E0D]"></i>
+                    <i
+                      class="fas fa-shopping-cart text-[14px] cursor-pointer hover:text-[#4A2E0D]"
+                    ></i>
                   </div>
                 </div>
               </div>
@@ -256,10 +289,12 @@ function isLiked(name) {
       </section>
 
       <!-- Kalau tidak ada hasil pencarian -->
-      <p v-if="searchQuery && !filteredCoffees.length && !filteredDesserts.length" class="text-center text-[#4A2E0D] mt-10 text-lg">
+      <p
+        v-if="searchQuery && !filteredCoffees.length && !filteredDesserts.length"
+        class="text-center text-[#4A2E0D] mt-10 text-lg"
+      >
         No results found for "{{ searchQuery }}"
       </p>
-
     </main>
   </div>
 </template>
