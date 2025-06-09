@@ -18,7 +18,6 @@
             Login
           </button>
         </div>
-              
       </nav>
     </header>
 
