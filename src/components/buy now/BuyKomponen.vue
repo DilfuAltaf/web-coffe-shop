@@ -90,10 +90,6 @@ const similar = computed(() => {
     .slice(0, 4)
 })
 
-function goBack() {
-  window.history.back()
-}
-
 import { ref } from 'vue'
 
 const quantity = ref(1)
@@ -150,8 +146,8 @@ function addToCart() {
     </nav>
     <!-- Product Detail -->
     <section class="px-6 py-8 max-w-6xl mx-auto mt-20">
-      <button @click="goBack" class="text-sm mb-4 text-[#3A2E2A]">
-        <a href="/home">&larr; Back</a>
+      <button class="text-sm mb-4 text-[#3A2E2A]">
+        <a href="/OrederNow">&larr; Back</a>
       </button>
 
       <div v-if="product" class="flex flex-col md:flex-row gap-10">
