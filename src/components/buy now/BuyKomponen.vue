@@ -147,7 +147,7 @@ function addToCart() {
     <!-- Product Detail -->
     <section class="px-6 py-8 max-w-6xl mx-auto mt-20">
       <button class="text-sm mb-4 text-[#3A2E2A]">
-        <a href="/OrederNow">&larr; Back</a>
+        <a href="/OrderNow">&larr; Back</a>
       </button>
 
       <div v-if="product" class="flex flex-col md:flex-row gap-10">
