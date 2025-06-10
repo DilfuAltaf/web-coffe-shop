@@ -51,6 +51,16 @@ onMounted(() => {
     window.removeEventListener('scroll', handleScroll)
   })
 })
+
+function handleOrder() {
+  const totalItems = cart.value.reduce((sum, item) => sum + item.quantity, 0)
+
+  if (totalItems === 0) {
+    alert('Your cart is empty. Please add some items first.')
+  } else {
+    alert('Your order is being processed. Thank you for shopping with us!')
+  }
+}
 </script>
 
 <template>
@@ -102,10 +112,13 @@ onMounted(() => {
           </thead>
           <tbody>
             <tr v-if="cart.length === 0">
-              <td colspan="5" class="text-center py-8 text-gray-400 font-semibold">
-                No Item in Chart
+              <td colspan="5" class="py-12">
+                <div class="flex flex-col items-center justify-center">
+                  <p class="text-gray-400 font-semibold mb-4">No Item in Chart</p>
+                </div>
               </td>
             </tr>
+
             <tr v-else v-for="(item, index) in cart" :key="index" class="border-b border-[#E3CBA8]">
               <td class="py-4 flex items-center gap-4">
                 <img :src="item.image" :alt="item.name" class="w-16 h-16 object-cover rounded-md" />
@@ -141,6 +154,34 @@ onMounted(() => {
           </tbody>
         </table>
       </div>
+      <div class="flex justify-center mt-6">
+        <a
+          href="/OrderNow"
+          class="text-white bg-[#4A2E0D] w-[200px] h-[46px] text-[18px] rounded-full transition-all duration-300 hover:bg-[#603913] hover:scale-105 hover:shadow-lg hover:text-yellow-200 flex items-center justify-center"
+        >
+          Shopping More
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div id="order" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 w-full max-w-3xl px-4">
+    <div class="bg-[#FAECD8] rounded-xl shadow-lg p-6 border border-[#E3CBA8]">
+      <h2 class="text-xl font-semibold mb-4">Order Summary</h2>
+      <div class="flex justify-between mb-2">
+        <span>Total Items:</span>
+        <span>{{ cart.reduce((sum, item) => sum + item.quantity, 0) }}</span>
+      </div>
+      <div class="flex justify-between mb-4">
+        <span>Total Price:</span>
+        <span>Rp.{{ cart.reduce((sum, item) => sum + item.price * item.quantity, 0) }}</span>
+      </div>
+      <button
+        @click="handleOrder"
+        class="w-full bg-[#4A2E0D] text-white py-3 rounded-lg hover:bg-[#603913] transition"
+      >
+        Order Now
+      </button>
     </div>
   </div>
 </template>

@@ -163,7 +163,7 @@ function isLiked(name) {
       >
         <h1 class="text-[24px] font-semibold"><a href="/home">Café de Aroma</a></h1>
         <div class="flex items-center gap-6">
-          <a href="#"><i class="fas fa-bag-shopping text-white text-2xl"></i></a>
+          <a href="/chart"><i class="fas fa-bag-shopping text-white text-2xl"></i></a>
           <a href="/">
             <button
               class="bg-[#4A2E0D] w-[124px] h-[46px] text-[18px] rounded-full transition-all duration-300 hover:bg-[#603913] hover:scale-105 hover:shadow-lg hover:text-yellow-200"

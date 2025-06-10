@@ -167,7 +167,7 @@ const togglePassword = () => {
     </div>
 
     <div
-      class="w-[50%] h-full flex justify-end bg-cover bg-center bg-[url('/img/coffe.jpg')] bg-cover bg-center"
+      class="w-[50%] h-full flex justify-end bg-[url('/img/coffe.jpg')] bg-cover bg-center"
     ></div>
   </div>
 </template>
