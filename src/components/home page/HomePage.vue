@@ -200,7 +200,7 @@ onMounted(() => {
           </div>
         </div>
         <img
-          src="/img/lungo.png"
+          src="/img/iced.png"
           alt="dalgona coffee"
           class="h-[450px] object-cover rounded-md shadow-md"
         />
