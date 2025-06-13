@@ -124,13 +124,53 @@ function addToCart() {
   localStorage.setItem('cart', JSON.stringify(cart))
   alert('Item added to cart!')
 }
+
+import { onMounted, onUnmounted } from 'vue'
+
+const showLoading = ref(true)
+const likedItems = ref([])
+const isScrolled = ref(false)
+
+onMounted(() => {
+  // Loading screen delay 500 ms
+  setTimeout(() => {
+    showLoading.value = false
+  }, 500)
+
+  // Load liked items dari localStorage kalau ada
+  const storedLikes = localStorage.getItem('likedItems')
+  if (storedLikes) {
+    likedItems.value = JSON.parse(storedLikes)
+  }
+
+  // Scroll event untuk mendeteksi posisi scroll
+  const handleScroll = () => {
+    isScrolled.value = window.scrollY > 100
+  }
+  window.addEventListener('scroll', handleScroll)
+
+  // Cleanup event scroll saat component diunmount
+  onUnmounted(() => {
+    window.removeEventListener('scroll', handleScroll)
+  })
+})
 </script>
 
 <template>
   <div class="bg-[#F7EBD9] text-[#3E2E23] font-sans">
+    <!-- Loading Screen -->
+    <div
+      v-if="showLoading"
+      class="fixed inset-0 flex flex-col items-center justify-center z-50 bg-[#c5a47e]"
+    >
+      <img src="/img/biji_coffe.png" alt="Coffee Bean" class="w-20 h-20 animate-spin mb-4" />
+      <p class="text-[#4A2E0D] text-lg font-medium animate-pulse">Loading coffee...</p>
+    </div>
+    <!-- Rest of your component content goes here -->
+    <slot />
     <!-- Navbar -->
     <nav
-      class="fixed top-0 left-0 w-full z-50 flex justify-between h-[90px] items-center px-[75px] text-white bg-[#A59786]"
+      class="fixed top-0 left-0 w-full z-40 flex justify-between h-[90px] items-center px-[75px] text-white bg-[#A59786]"
     >
       <h1 class="text-[24px] font-semibold"><a href="/home">Café de Aroma</a></h1>
       <div class="flex items-center gap-6">
